@@ -6,9 +6,7 @@
   - name: Update repository index for Linux Mint, upgrade, autoclean and autoremove
     apt:
       update_cache: yes
-      upgrade: 'yes'
-      autoclean: yes
-      autoremove: yes
+      upgrade: dist
     when: ansible_distribution == "Linux Mint"
 
   - name: install tools
@@ -88,6 +86,24 @@
     unarchive:
       src: https://ilsh.duckdns.org/ANSIBLE/vim_config.zip
       dest: /home/ilan/
+      remote_src: yes
+      mode: 0755
+      owner: ilan
+      group: ilan
+
+  - name: update .config/i3 dir to ILAN user
+    unarchive:
+      src: https://ilsh.duckdns.org/ANSIBLE/i3.zip
+      dest: /home/ilan/.config/
+      remote_src: yes
+      mode: 0755
+      owner: ilan
+      group: ilan
+
+  - name: update .config/vifm dir to ILAN user
+    unarchive:
+      src: https://ilsh.duckdns.org/ANSIBLE/vifm.zip
+      dest: /home/ilan/.config/
       remote_src: yes
       mode: 0755
       owner: ilan

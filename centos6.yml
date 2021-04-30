@@ -1,0 +1,87 @@
+---
+- hosts: centos6
+  become: true
+  tasks:
+
+  - name: copy .bashrc_root to /root
+    copy:
+      src: /home/ilan/Ansible/.bashrc_root
+      dest: /root/.bashrc
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: copy .bashrc to USER user
+    copy:
+      src: /home/ilan/Ansible/.bashrc
+      dest: /home/user/
+      owner: user
+      group: user
+      mode: 0644
+
+  - name: copy .bash_aliases to /root
+    copy:
+      src: /home/ilan/Ansible/.bash_aliases
+      dest: /root/
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: copy .bash_aliases to USER user
+    copy:
+      src: /home/ilan/Ansible/.bash_aliases
+      dest: /home/user/
+      owner: user
+      group: user
+      mode: 0644
+
+  - name: copy .vimrc to /root
+    copy:
+      src: /home/ilan/Ansible/.vimrc_centos6
+      dest: /root/.vimrc
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: copy .vimrc to USER user
+    copy:
+      src: /home/ilan/Ansible/.vimrc_centos6
+      dest: /home/user/.vimrc
+      owner: user
+      group: user
+      mode: 0644
+
+  - name: update .vim dir for root
+    unarchive:
+      src: https://ilsh.duckdns.org/ANSIBLE/vim_config.zip
+      dest: /root/
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
+
+  - name: update .vim dir to USER user
+    unarchive:
+      src: https://ilsh.duckdns.org/ANSIBLE/vim_config.zip
+      dest: /home/user/
+      remote_src: yes
+      mode: 0755
+      owner: user
+      group: user
+
+  - name: copy .tmux.conf to /root
+    copy:
+      src: /home/ilan/Ansible/.tmux.conf
+      dest: /root
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: copy .tmux.conf to USER user
+    copy:
+      src: /home/ilan/Ansible/.tmux.conf
+      dest: /home/user
+      owner: user
+      group: user
+      mode: 0644
+
