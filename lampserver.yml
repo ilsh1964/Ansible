@@ -26,10 +26,10 @@
       state: latest
     when: ansible_distribution == "Debian"
 
-  - name: copy .bashrc
+  - name: copy .bashrc_root
     copy:
-      src: /home/ilan/Ansible/.bashrc
-      dest: /root
+      src: /home/ilan/Ansible/.bashrc_root
+      dest: /root/.bashrc
 
   - name: copy .bash_aliases
     copy:
