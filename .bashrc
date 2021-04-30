@@ -1,4 +1,4 @@
-# .BASHRC         PI         VER: 4.2 (2020-04-28)
+# .BASHRC         ANSIBLE SERVER        VER: 5.0 (2021-04-28)
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -9,8 +9,6 @@ case $- in
       *) return;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
 HISTCONTROL=ignoreboth
 
 # shopt - set and unset shell options: -s: set, -u: disable
@@ -23,14 +21,6 @@ shopt -s checkwinsize # check window size n each command and fix size
 HISTSIZE=1000
 HISTFILESIZE=2000
 HISTTIMEFORMAT="%F %T "
-
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -60,7 +50,6 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     PS1='\[\e[1;31m\]\u\[\e[1;33m\]@\[\e[1;32m\]\h:\[\e[1;34m\]\W$ \[\e[m\]'
-    #FOR ROOT: PS1='${debian_chroot:+($debian_chroot)}\e[1;31m\u@\h:\W# \e[m'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
 fi
@@ -87,8 +76,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -100,7 +87,6 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 PATH="$HOME/Bin:$HOME/Bin/cya:$PATH"
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -112,5 +98,29 @@ if ! shopt -oq posix; then
   fi
 fi
 
-set -o vi
+export EDITOR=vim
 
+### ARCHIVE EXTRACTION
+# usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+      case $1 in
+         *.tar.bz2)   tar xjf $1   ;;
+         *.tar.gz)    tar xzf $1   ;;
+         *.bz2)       bunzip2 $1   ;;
+         *.rar)       unrar x $1   ;;
+         *.gz)        gunzip $1    ;;
+         *.tar)       tar xf $1    ;;
+         *.tgz)       tar xzf $1   ;;
+         *.zip)       unzip $1     ;;
+         *.Z)         uncompress $1;;
+         *.7z)        7z x $1      ;;
+         *.deb)       ar x $1      ;;
+         *.tar.xz)    tar xf $1    ;;
+       *)           echo "'$1' cannot be extracted via ex()" ;;
+  esac
+     else
+        echo "'$1' is not a valid file"
+  fi
+}

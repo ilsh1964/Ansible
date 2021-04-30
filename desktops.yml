@@ -3,9 +3,10 @@
   become: true
   tasks:
 
-  - name: Update repository index for Linux Mint, autoclean and autoremove
+  - name: Update repository index for Linux Mint, upgrade, autoclean and autoremove
     apt:
       update_cache: yes
+      upgrade: 'yes'
       autoclean: yes
       autoremove: yes
     when: ansible_distribution == "Linux Mint"
@@ -16,6 +17,8 @@
         - vim
         - ncdu
         - vifm
+        - tmux
+        - htop
       state: latest
     when: ansible_distribution == "Linux Mint"
 
@@ -24,18 +27,66 @@
         deb: https://ilsh.duckdns.org/DEB/Shavit_Scripts_3.2_all.deb
     when: ansible_distribution == "Linux Mint"
 
-  - name: copy .bashrc_root
+  - name: copy .bashrc_root to /root
     copy:
       src: /home/ilan/Ansible/.bashrc_root
       dest: /root/.bashrc
+      owner: root
+      group: root
+      mode: 0644
 
-  - name: copy .bash_aliases
+  - name: copy .bashrc to $HOME
+    copy:
+      src: /home/ilan/Ansible/.bashrc
+      dest: /home/ilan/
+      owner: ilan
+      group: ilan
+      mode: 0644
+
+  - name: copy .bash_aliases to /root
     copy:
       src: /home/ilan/Ansible/.bash_aliases
-      dest: /root
+      dest: /root/
+      owner: root
+      group: root
+      mode: 0644
 
-  - name: copy .vimrc
+  - name: copy .bash_aliases to $HOME
+    copy:
+      src: /home/ilan/Ansible/.bash_aliases
+      dest: /home/ilan/
+      owner: ilan
+      group: ilan
+      mode: 0644
+
+  - name: copy .vimrc to /root
     copy:
       src: /home/ilan/Ansible/.vimrc
       dest: /root
+      owner: root
+      group: root
+      mode: 0644
 
+  - name: copy .vimrc to $HOME
+    copy:
+      src: /home/ilan/Ansible/.vimrc
+      dest: /home/ilan/
+      owner: ilan
+      group: ilan
+      mode: 0644
+
+  - name: copy .tmux.conf to /root
+    copy:
+      src: /home/ilan/Ansible/.tmux.conf
+      dest: /root
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: copy .tmux.conf to $HOME
+    copy:
+      src: /home/ilan/Ansible/.tmux.conf
+      dest: /home/ilan
+      owner: ilan
+      group: ilan
+      mode: 0644

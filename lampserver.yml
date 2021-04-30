@@ -6,6 +6,7 @@
   - name: Update repository index for Debian, autoclean and autoremove
     apt:
       update_cache: yes
+      upgrade: 'yes'
       autoclean: yes
       autoremove: yes
     when: ansible_distribution == "Debian"
@@ -25,6 +26,8 @@
         - vim
         - ncdu
         - vifm
+        - tmux
+        - htop
       state: latest
     when: ansible_distribution == "Debian"
 
@@ -33,18 +36,66 @@
         deb: https://ilsh.duckdns.org/DEB/Shavit_Scripts_3.2_all.deb
     when: ansible_distribution == "Debian"
 
-  - name: copy .bashrc_root
+  - name: copy .bashrc_root to /root
     copy:
       src: /home/ilan/Ansible/.bashrc_root
       dest: /root/.bashrc
+      owner: root
+      group: root
+      mode: 0644
 
-  - name: copy .bash_aliases
+  - name: copy .bashrc to PI USER
+    copy:
+      src: /home/ilan/Ansible/.bashrc
+      dest: /home/pi/
+      owner: pi
+      group: pi
+      mode: 0644
+
+  - name: copy .bash_aliases to /root
     copy:
       src: /home/ilan/Ansible/.bash_aliases
-      dest: /root
+      dest: /root/
+      owner: root
+      group: root
+      mode: 0644
 
-  - name: copy .vimrc
+  - name: copy .bash_aliases to PI USER
+    copy:
+      src: /home/ilan/Ansible/.bash_aliases
+      dest: /home/pi/
+      owner: pi
+      group: pi
+      mode: 0644
+
+  - name: copy .vimrc to /root
     copy:
       src: /home/ilan/Ansible/.vimrc
       dest: /root
+      owner: root
+      group: root
+      mode: 0644
 
+  - name: copy .vimrc to $HOME
+    copy:
+      src: /home/ilan/Ansible/.vimrc
+      dest: /home/pi/
+      owner: pi
+      group: pi
+      mode: 0644
+
+  - name: copy .tmux.conf to /root
+    copy:
+      src: /home/ilan/Ansible/.tmux.conf
+      dest: /root
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: copy .tmux.conf to $HOME
+    copy:
+      src: /home/ilan/Ansible/.tmux.conf
+      dest: /home/pi
+      owner: pi
+      group: pi
+      mode: 0644

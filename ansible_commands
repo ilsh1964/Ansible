@@ -1,3 +1,4 @@
+ansible-playbook --ask-become-pass desktops.yml
 ansible-playbook --ask-become-pass lampserver.yml
 ansible all -m ping
 ansible all -m gather_facts |grep -i distrib
