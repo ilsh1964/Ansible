@@ -1,23 +1,14 @@
 ---
-- hosts: lampservers
+- hosts: desktops
   become: true
   tasks:
 
-  - name: Update repository index for Debian, autoclean and autoremove
+  - name: Update repository index for Linux Mint, autoclean and autoremove
     apt:
       update_cache: yes
       autoclean: yes
       autoremove: yes
-    when: ansible_distribution == "Debian"
-
-  - name: install all lamp components
-    apt:
-      name:
-        - apache2
-        - php
-        - mariadb-server
-      state: latest
-    when: ansible_distribution == "Debian"
+    when: ansible_distribution == "Linux Mint"
 
   - name: install tools
     apt:
@@ -26,12 +17,12 @@
         - ncdu
         - vifm
       state: latest
-    when: ansible_distribution == "Debian"
+    when: ansible_distribution == "Linux Mint"
 
   - name: Install a .deb package from the internet
     apt:
         deb: https://ilsh.duckdns.org/DEB/Shavit_Scripts_3.2_all.deb
-    when: ansible_distribution == "Debian"
+    when: ansible_distribution == "Linux Mint"
 
   - name: copy .bashrc_root
     copy:
