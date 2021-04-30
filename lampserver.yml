@@ -26,6 +26,11 @@
       state: latest
     when: ansible_distribution == "Debian"
 
+  - name: Install a .deb package from the internet
+    apt:
+        deb: https://ilsh.duckdns.org/DEB/Shavit_Scripts_3.2_all.deb
+    when: ansible_distribution == "Debian"
+
   - name: copy .bashrc_root
     copy:
       src: /home/ilan/Ansible/.bashrc_root
