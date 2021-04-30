@@ -1,0 +1,43 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Update repository index for Debian
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Debian"
+
+  - name: install all lamp components
+    apt:
+      name:
+        - apache2
+        - php
+        - mariadb-server
+      state: latest
+    when: ansible_distribution == "Debian"
+
+  - name: install tools
+    apt:
+      name:
+        - vim
+        - ncdu
+        - vifm
+      state: latest
+    when: ansible_distribution == "Debian"
+
+  - name: copy .bashrc
+    copy:
+      src: /home/ilan/Ansible/.bashrc
+      dest: /root
+
+  - name: copy .bash_aliases
+    copy:
+      src: /home/ilan/Ansible/.bash_aliases
+      dest: /root
+
+  - name: copy .vimrc
+    copy:
+      src: /home/ilan/Ansible/.vimrc
+      dest: /root
+
