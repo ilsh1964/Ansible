@@ -23,7 +23,7 @@
   - name: install tools
     apt:
       name:
-        - vim
+        - vim-nox
         - ncdu
         - vifm
         - tmux
@@ -33,7 +33,7 @@
 
   - name: Install a .deb package from the internet
     apt:
-        deb: https://ilsh.duckdns.org/DEB/Shavit_Scripts_3.2_all.deb
+        deb: https://ilsh.duckdns.org/ANSIBLE/Shavit_Scripts_3.2_all.deb
     when: ansible_distribution == "Debian"
 
   - name: copy .bashrc_root to /root
@@ -44,7 +44,7 @@
       group: root
       mode: 0644
 
-  - name: copy .bashrc to PI USER
+  - name: copy .bashrc to PI user
     copy:
       src: /home/ilan/Ansible/.bashrc
       dest: /home/pi/
@@ -60,7 +60,7 @@
       group: root
       mode: 0644
 
-  - name: copy .bash_aliases to PI USER
+  - name: copy .bash_aliases to PI user
     copy:
       src: /home/ilan/Ansible/.bash_aliases
       dest: /home/pi/
@@ -76,13 +76,31 @@
       group: root
       mode: 0644
 
-  - name: copy .vimrc to $HOME
+  - name: copy .vimrc to PI user
     copy:
       src: /home/ilan/Ansible/.vimrc
       dest: /home/pi/
       owner: pi
       group: pi
       mode: 0644
+
+  - name: update .vim dir for root
+    unarchive:
+      src: https://ilsh.duckdns.org/ANSIBLE/vim_config.zip
+      dest: /root/
+      remote_src: yes
+      mode: 0755
+      owner: root
+      group: root
+
+  - name: update .vim dir to PI user
+    unarchive:
+      src: https://ilsh.duckdns.org/ANSIBLE/vim_config.zip
+      dest: /home/pi/
+      remote_src: yes
+      mode: 0755
+      owner: pi
+      group: pi
 
   - name: copy .tmux.conf to /root
     copy:
@@ -92,10 +110,11 @@
       group: root
       mode: 0644
 
-  - name: copy .tmux.conf to $HOME
+  - name: copy .tmux.conf to PI user
     copy:
       src: /home/ilan/Ansible/.tmux.conf
       dest: /home/pi
       owner: pi
       group: pi
       mode: 0644
+
