@@ -3,9 +3,11 @@
   become: true
   tasks:
 
-  - name: Update repository index for Debian
+  - name: Update repository index for Debian, autoclean and autoremove
     apt:
       update_cache: yes
+      autoclean: yes
+      autoremove: yes
     when: ansible_distribution == "Debian"
 
   - name: install all lamp components
