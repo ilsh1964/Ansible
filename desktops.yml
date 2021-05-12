@@ -17,6 +17,7 @@
         - vifm
         - tmux
         - htop
+        - numlockx
       state: latest
     when: ansible_distribution == "Linux Mint"
 

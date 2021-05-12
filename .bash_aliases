@@ -1,4 +1,4 @@
-# .BASH_ALIASES       ANSIBLE      ver 7.0  2021-04-30
+# .BASH_ALIASES       ANSIBLE      ver 7.1  2021-05-12
 
 # GENERAL
 alias ...="cd ../.. "
@@ -42,13 +42,13 @@ alias update='sudo apt update'
 alias upgrade='sudo apt upgrade'
 
 # SHORTCUTS TO SERVERS
-alias web='ssh pi@10.0.0.99'
-alias hiro='ssh user@10.0.0.111'
-alias proactive='ssh user@10.0.0.113'
-alias shavit='ssh shavit@10.0.0.112'
-alias tikshuv='ssh user@10.0.0.114'
-alias ansible='ssh ilan@10.0.0.125'
-alias hiro-test='ssh user@10.0.0.131'
+alias web='ssh pi@192.168.1.99'
+alias hiro='ssh user@192.168.1.111'
+alias proactive='ssh user@192.168.1.113'
+alias shavit='ssh shavit@192.168.1.112'
+alias tikshuv='ssh user@192.168.1.114'
+alias ansible='ssh ilan@192.168.1.125'
+alias hiro-test='ssh user@192.168.1.131'
 
 # SHORTCUTS TO DIRECTORIES
 alias doc='cd ~/Documents'
